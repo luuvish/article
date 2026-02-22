@@ -1,4 +1,4 @@
-baseURL = 'https://luuvish.github.io/luuvish-article/'
+baseURL = 'https://luuvish.github.io/article/'
 languageCode = 'ko-kr'
 title = 'Luuvish Article'
 defaultContentLanguage = 'ko'

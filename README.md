@@ -1,6 +1,6 @@
 # Luuvish Article
 
-Hugo로 구성한 `luuvish.github.io/luuvish-article`용 정적 사이트입니다.
+Hugo로 구성한 `luuvish.github.io/article`용 정적 사이트입니다.
 
 ## 로컬 실행
 
@@ -8,7 +8,7 @@ Hugo로 구성한 `luuvish.github.io/luuvish-article`용 정적 사이트입니�
 hugo server -D
 ```
 
-브라우저에서 `http://localhost:1313/luuvish-article/` 또는 `http://localhost:1313/`를 확인하세요.
+브라우저에서 `http://localhost:1313/article/` 또는 `http://localhost:1313/`를 확인하세요.
 
 ## 새 글 작성
 
