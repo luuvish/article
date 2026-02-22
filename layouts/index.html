@@ -1,0 +1,29 @@
+{{ define "main" }}
+  {{ $postsPage := site.GetPage "section" "posts" }}
+  <section class="hero">
+    <p class="eyebrow">luuvish.github.io/article</p>
+    <h1>{{ site.Title }}</h1>
+    <p>{{ with site.Params.description }}{{ . }}{{ else }}기록하고 공유하는 공간입니다.{{ end }}</p>
+    <a class="button" href="{{ if $postsPage }}{{ $postsPage.RelPermalink }}{{ else }}{{ "/posts/" | relLangURL }}{{ end }}">글 보러 가기</a>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <h2>최근 글</h2>
+      <a href="{{ if $postsPage }}{{ $postsPage.RelPermalink }}{{ else }}{{ "/posts/" | relLangURL }}{{ end }}">전체 보기</a>
+    </div>
+    {{ $posts := where site.RegularPages "Type" "posts" }}
+    {{ if gt (len $posts) 0 }}
+      <ul class="post-list">
+        {{ range first 5 $posts.ByDate.Reverse }}
+          <li>
+            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+          </li>
+        {{ end }}
+      </ul>
+    {{ else }}
+      <p>아직 게시된 글이 없습니다.</p>
+    {{ end }}
+  </section>
+{{ end }}
