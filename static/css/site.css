@@ -1,6 +1,6 @@
 :root {
   --font-sans: "SUIT Variable", "SUIT", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  --font-serif: "Noto Serif KR", "Nanum Myeongjo", "Apple Myungjo", serif;
+  --font-heading: "SUIT Variable", "SUIT", "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   --font-mono: "JetBrains Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   --bg: #f6f3ea;
   --bg-soft: #ece7da;
@@ -115,9 +115,9 @@ a {
 }
 
 .brand {
-  font-family: var(--font-serif);
+  font-family: var(--font-heading);
   font-size: 1.14rem;
-  font-weight: 700;
+  font-weight: 800;
   letter-spacing: -0.012em;
   text-decoration: none;
 }
@@ -184,7 +184,7 @@ h3 {
 .prose h2,
 .prose h3,
 .prose h4 {
-  font-family: var(--font-serif);
+  font-family: var(--font-heading);
   letter-spacing: -0.012em;
 }
 
