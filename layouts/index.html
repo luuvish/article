@@ -1,7 +1,7 @@
 {{ define "main" }}
   {{ $postsPage := site.GetPage "section" "posts" }}
   <section class="hero">
-    <p class="eyebrow">luuvish.github.io/article</p>
+    <p class="eyebrow">luuvish.github.io/luuvish-article</p>
     <h1>{{ site.Title }}</h1>
     <p>{{ with site.Params.description }}{{ . }}{{ else }}기록하고 공유하는 공간입니다.{{ end }}</p>
     <a class="button" href="{{ if $postsPage }}{{ $postsPage.RelPermalink }}{{ else }}{{ "/posts/" | relLangURL }}{{ end }}">글 보러 가기</a>
