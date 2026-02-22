@@ -1,19 +1,38 @@
 {{ define "main" }}
-  <section class="section">
-    <h1>{{ .Title }}</h1>
+  <section class="section reveal reveal-1">
+    <header class="list-header">
+      <p class="eyebrow">Archive</p>
+      <h1>{{ .Title }}</h1>
+    </header>
     {{ with .Content }}
       <div class="prose">{{ . }}</div>
     {{ end }}
 
-    <ul class="post-list">
+    {{ if gt (len .Pages) 0 }}
+      <div class="archive-list">
       {{ range .Pages.ByDate.Reverse }}
-        <li>
-          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
-        </li>
+        <article class="archive-item">
+          <p class="card-meta">
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+            <span>·</span>
+            <span>{{ .ReadingTime }} min read</span>
+          </p>
+          <h2><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+          <p>{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 180 }}{{ end }}</p>
+          {{ with .Params.tags }}
+            <ul class="tag-list">
+              {{ range first 4 . }}
+                <li><span>#{{ . }}</span></li>
+              {{ end }}
+            </ul>
+          {{ end }}
+        </article>
       {{ else }}
-        <li>아직 글이 없습니다.</li>
+        <p>아직 글이 없습니다.</p>
       {{ end }}
-    </ul>
+      </div>
+    {{ else }}
+      <p>아직 글이 없습니다.</p>
+    {{ end }}
   </section>
 {{ end }}

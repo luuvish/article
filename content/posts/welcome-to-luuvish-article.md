@@ -1,6 +1,6 @@
 +++
 title = '첫 글: Luuvish Article을 시작하며'
-date = 2026-02-22T13:30:00+09:00
+date = 2026-02-21T09:30:00+09:00
 draft = false
 tags = ['intro', 'hugo', 'github-pages']
 +++

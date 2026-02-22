@@ -4,28 +4,36 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ with site.Params.description }}{{ . }}{{ else }}{{ site.Title }}{{ end }}">
+    <meta name="theme-color" content="#f6f3ea">
     <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
     <link rel="stylesheet" href="{{ "css/site.css" | relURL }}">
   </head>
-  <body>
+  <body class="{{ if .IsHome }}page-home{{ else }}page-inner{{ end }}">
+    <div class="backdrop" aria-hidden="true">
+      <span class="orb orb-one"></span>
+      <span class="orb orb-two"></span>
+      <span class="grid"></span>
+    </div>
+
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a>
         <nav class="nav">
           {{ range site.Menus.main }}
-            <a href="{{ .URL | relURL }}">{{ .Name }}</a>
+            <a class="nav-link" href="{{ .URL | relURL }}">{{ .Name }}</a>
           {{ end }}
         </nav>
       </div>
     </header>
 
-    <main class="container">
+    <main class="container page-main">
       {{ block "main" . }}{{ end }}
     </main>
 
     <footer class="site-footer">
       <div class="container">
         <p>&copy; {{ now.Year }} {{ site.Params.author }}</p>
+        <p class="footer-note">Built with Hugo and GitHub Pages</p>
       </div>
     </footer>
   </body>

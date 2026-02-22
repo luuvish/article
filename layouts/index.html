@@ -1,29 +1,80 @@
 {{ define "main" }}
   {{ $postsPage := site.GetPage "section" "posts" }}
-  <section class="hero">
-    <p class="eyebrow">luuvish.github.io/article</p>
+  {{ $posts := where site.RegularPages "Type" "posts" }}
+  {{ $sortedPosts := $posts.ByDate.Reverse }}
+  {{ $recent := first 3 $sortedPosts }}
+
+  <section class="hero reveal reveal-1">
+    <p class="eyebrow">Editorial Lab Journal</p>
     <h1>{{ site.Title }}</h1>
-    <p>{{ with site.Params.description }}{{ . }}{{ else }}기록하고 공유하는 공간입니다.{{ end }}</p>
-    <a class="button" href="{{ if $postsPage }}{{ $postsPage.RelPermalink }}{{ else }}{{ "/posts/" | relLangURL }}{{ end }}">글 보러 가기</a>
+    <p class="lead">{{ with site.Params.description }}{{ . }}{{ else }}기록하고 공유하는 공간입니다.{{ end }}</p>
+    <div class="hero-actions">
+      <a class="button button-primary" href="{{ if gt (len $recent) 0 }}{{ (index $recent 0).RelPermalink }}{{ else if $postsPage }}{{ $postsPage.RelPermalink }}{{ else }}{{ "/posts/" | relLangURL }}{{ end }}">최근 글 읽기</a>
+      <a class="button button-ghost" href="{{ if $postsPage }}{{ $postsPage.RelPermalink }}{{ else }}{{ "/posts/" | relLangURL }}{{ end }}">글 전체 보기</a>
+    </div>
+
+    <dl class="hero-stats">
+      <div>
+        <dt>Posts</dt>
+        <dd>{{ len $posts }}</dd>
+      </div>
+      <div>
+        <dt>Tags</dt>
+        <dd>{{ len site.Taxonomies.tags }}</dd>
+      </div>
+      <div>
+        <dt>Updated</dt>
+        <dd>{{ if gt (len $sortedPosts) 0 }}{{ (index $sortedPosts 0).Date.Format "2006-01-02" }}{{ else }}-{{ end }}</dd>
+      </div>
+    </dl>
   </section>
 
-  <section class="section">
+  <section class="section reveal reveal-2">
     <div class="section-header">
       <h2>최근 글</h2>
       <a href="{{ if $postsPage }}{{ $postsPage.RelPermalink }}{{ else }}{{ "/posts/" | relLangURL }}{{ end }}">전체 보기</a>
     </div>
-    {{ $posts := where site.RegularPages "Type" "posts" }}
-    {{ if gt (len $posts) 0 }}
-      <ul class="post-list">
-        {{ range first 5 $posts.ByDate.Reverse }}
-          <li>
-            <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
-          </li>
+    {{ if gt (len $recent) 0 }}
+      <div class="post-grid">
+        {{ range $recent }}
+          <article class="post-card">
+            <p class="card-meta">
+              <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+              <span>·</span>
+              <span>{{ .ReadingTime }} min read</span>
+            </p>
+            <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+            <p>{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 130 }}{{ end }}</p>
+            {{ with .Params.tags }}
+              <ul class="tag-list">
+                {{ range first 3 . }}
+                  <li><span>#{{ . }}</span></li>
+                {{ end }}
+              </ul>
+            {{ end }}
+          </article>
         {{ end }}
-      </ul>
+      </div>
     {{ else }}
       <p>아직 게시된 글이 없습니다.</p>
+    {{ end }}
+  </section>
+
+  <section class="section reveal reveal-3">
+    <div class="section-header">
+      <h2>태그</h2>
+    </div>
+    {{ if gt (len site.Taxonomies.tags) 0 }}
+      <div class="tag-cloud">
+        {{ range site.Taxonomies.tags.Alphabetical }}
+          <a class="tag-pill" href="{{ .Page.RelPermalink }}">
+            #{{ .Term }}
+            <span>{{ .Count }}</span>
+          </a>
+        {{ end }}
+      </div>
+    {{ else }}
+      <p>아직 태그가 없습니다.</p>
     {{ end }}
   </section>
 {{ end }}
