@@ -1,6 +1,6 @@
 +++
 date = '2026-03-10T22:46:09+09:00'
-draft = true
+draft = false
 title = 'My Life 9 Games'
 +++
 # 인생 9가지 게임
